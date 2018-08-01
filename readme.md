@@ -1,4 +1,4 @@
-Scripts for filling an sd-card with alpine linux and configuring it with:
+# Scripts for filling an sd-card for a raspberry pi with alpine linux and configuring it with:
 
 * a Let's encrypt certificate using dehydrated.io
 * lighttpd
@@ -8,28 +8,28 @@ Scripts for filling an sd-card with alpine linux and configuring it with:
 * installs updates on boot
 * sends own ip address as email just in case it changes
 
-# Usage examples
+## Usage examples
 
 ./generate-apkovl.sh hostname domain.com.invalid email.address@for.various.notifications.invalid smtp.server.invalid path/to/ssh/keyfile.pub www/ staging
 
 ./write-sd-card.sh /path/to/mounted/cd/card hostname.apkovl.tar.gz
 
-## web sites
+### web sites
 
 The web sites to serve must be placed in a single directory given as a parameter
 to generate-apkovl.sh. Each web site must be placed in a separate sub directory:
 
 * domain1.com.invalid
- * htdocs
-  * index.html
+  * htdocs
+    * index.html
 * domain2.fi.invalid
- * htdocs
-  * index.html
+  * htdocs
+    * index.html
 
 One of the web sites should probably be the hostname.domain.com.invalid given as
 a parameter. www.hostname.domain.com.invalid is redirected automatically.
 
-# Dependencies
+## Dependencies
 
 Lots.
 
@@ -40,7 +40,7 @@ Lots.
 * gzip
 * ...
 
-# Missing features
+## Missing features
 
 * configurable timezone
 * actual content for the website
