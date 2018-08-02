@@ -19,12 +19,13 @@
 The web sites to serve must be placed in a single directory given as a parameter
 to generate-apkovl.sh. Each web site must be placed in a separate sub directory:
 
-* domain1.com.invalid
-  * htdocs
-    * index.html
-* domain2.fi.invalid
-  * htdocs
-    * index.html
+* www
+  * domain1.com.invalid
+    * htdocs
+      * index.html
+  * domain2.fi.invalid
+    * htdocs
+      * index.html
 
 One of the web sites should probably be the hostname.domain.com.invalid given as
 a parameter. www.hostname.domain.com.invalid is redirected automatically.
