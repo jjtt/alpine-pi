@@ -12,7 +12,7 @@
 
 ./generate-apkovl.sh hostname domain.com.invalid email.address@for.various.notifications.invalid smtp.server.invalid path/to/ssh/keyfile.pub www/ staging
 
-./write-sd-card.sh /path/to/mounted/cd/card hostname.apkovl.tar.gz
+./write-sd-card.sh /path/to/mounted/sd/card hostname.apkovl.tar.gz
 
 ### web sites
 
