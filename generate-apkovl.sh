@@ -55,6 +55,15 @@ mkdir -p "$TEMPD/etc/runlevels/default"
 ln -s /etc/init.d/local "$TEMPD/etc/runlevels/default/local"
 
 #
+# enable community repository
+mkdir -p "$TEMPD/etc/apk"
+cat > "$TEMPD/etc/apk/repositories" << EOF
+http://alpine.mirror.far.fi/v3.10/main
+http://alpine.mirror.far.fi/v3.10/community
+EOF
+chmod 644 "$TEMPD/etc/apk/repositories"
+
+#
 # install and update on boot
 mkdir -p "$TEMPD/etc/local.d"
 cat > "$TEMPD/etc/local.d/00apk-update-upgrade.start" << EOF
