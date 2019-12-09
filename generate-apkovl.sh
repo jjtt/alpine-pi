@@ -115,7 +115,7 @@ chmod 644 "$TEMPD/etc/apk/world"
 mkdir -p "$TEMPD/root"
 cat > "$TEMPD/root/.profile" << EOF
 #!/bin/sh
-exec startx
+exec startx -- -nocursor
 EOF
 chmod 644 "$TEMPD/root/.profile"
 
