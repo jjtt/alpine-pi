@@ -120,6 +120,25 @@ EOF
 chmod 644 "$TEMPD/root/.profile"
 
 #
+# xinitrc
+mkdir -p "$TEMPD/root"
+cat > "$TEMPD/root/.xinitrc" << EOF
+#!/bin/sh
+
+# turn off screensaver
+xset -dpms
+xset s off
+xset s noblank
+
+# screen size
+width="1920"
+height="1080"
+
+exec chromium-browser $URL --window-size=\$width,\$height --window-position=0,0 --kiosk --no-sandbox --full-screen --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --ignore-gpu-blacklist --disable-quic --enable-fast-unload --enable-tcp-fast-open ---enable-native-gpu-memory-buffers --enable-gpu-rasterization --enable-zero-copy --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/tmp
+EOF
+chmod 644 "$TEMPD/root/.xinitrc"
+
+#
 # create apkovl for configured hostname
 cp initial.apkovl.tar "$HOSTNAME.apkovl.tar"
 tar -rf "$HOSTNAME.apkovl.tar" -C "$TEMPD" --owner=root:0 --group=root:0 etc root
