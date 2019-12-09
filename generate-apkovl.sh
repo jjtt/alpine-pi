@@ -16,6 +16,12 @@ URL="$2"
 TEMPD="$(mktemp -d)"
 
 #
+# apk arch
+mkdir -p "$TEMPD/etc/apk"
+echo "armv7" > "$TEMPD/etc/apk/arch"
+chmod 644 "$TEMPD/etc/apk/arch"
+
+#
 # hosts
 mkdir -p "$TEMPD/etc"
 echo "127.0.0.1       $HOSTNAMEAINNAME $HOSTNAME localhost.localdomain localhost" > "$TEMPD/etc/hosts"
