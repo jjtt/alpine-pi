@@ -39,6 +39,28 @@ EOF
 chmod 644 "$TEMPD/etc/motd"
 
 #
+# install and update on boot
+mkdir -p "$TEMPD/etc/local.d"
+cat > "$TEMPD/etc/local.d/00apk-update-upgrade.start" << EOF
+#!/bin/sh
+echo "apk update & upgrade"
+
+/sbin/apk update
+
+OUTPUT=\$(/sbin/apk upgrade)
+echo "\$OUTPUT"
+echo "\$OUTPUT" | grep -E "Installing|Upgrading" > /dev/null
+if [ \$? -eq 0 ]
+then
+  echo "Something was installed or upgraded - rebooting"
+  /sbin/reboot
+fi
+
+echo "apk update & upgrade - done"
+EOF
+chmod 755 "$TEMPD/etc/local.d/00apk-update-upgrade.start"
+
+#
 # add chromium to world
 mkdir -p "$TEMPD/etc/apk"
 cat > "$TEMPD/etc/apk/world" << EOF
