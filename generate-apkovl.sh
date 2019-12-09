@@ -86,12 +86,26 @@ EOF
 chmod 755 "$TEMPD/etc/local.d/00apk-update-upgrade.start"
 
 #
-# add chromium to world
+# add xorg and chromium to world
 mkdir -p "$TEMPD/etc/apk"
 cat > "$TEMPD/etc/apk/world" << EOF
 alpine-base
 chrony
 openssl
+xorg-server
+xf86-video-vesa
+xf86-input-evdev
+xf86-input-mouse
+xf86-input-keyboard
+udev
+mesa-dri-vc4
+mesa-egl
+xf86-video-fbdev
+dbus
+setxkbmap
+kbd
+xrandr
+xset
 chromium
 EOF
 chmod 644 "$TEMPD/etc/apk/world"
