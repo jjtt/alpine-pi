@@ -111,6 +111,19 @@ EOF
 chmod 644 "$TEMPD/etc/apk/world"
 
 #
+# inittab to log in root automatically
+mkdir -p "$TEMPD/etc"
+cat > "$TEMPD/etc/inittab" << EOF
+::sysinit:/sbin/openrc sysinit
+::sysinit:/sbin/openrc boot
+::wait:/sbin/openrc default
+tty1::respawn:/bin/login -f root
+::ctrlaltdel:/sbin/reboot
+::shutdown:/sbin/openrc shutdown
+EOF
+chmod 644 "$TEMPD/etc/inittab"
+
+#
 # startx
 mkdir -p "$TEMPD/root"
 cat > "$TEMPD/root/.profile" << EOF
