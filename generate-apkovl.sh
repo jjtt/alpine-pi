@@ -39,6 +39,16 @@ EOF
 chmod 644 "$TEMPD/etc/motd"
 
 #
+# enable local service
+mkdir -p "$TEMPD/etc/conf.d"
+cat > "$TEMPD/etc/conf.d/local" << EOF
+rc_verbose=yes
+EOF
+chmod 644 "$TEMPD/etc/conf.d/local"
+mkdir -p "$TEMPD/etc/runlevels/default"
+ln -s /etc/init.d/local "$TEMPD/etc/runlevels/default/local"
+
+#
 # install and update on boot
 mkdir -p "$TEMPD/etc/local.d"
 cat > "$TEMPD/etc/local.d/00apk-update-upgrade.start" << EOF
