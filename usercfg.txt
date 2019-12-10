@@ -2,3 +2,4 @@ gpu_mem=192
 gpu_mem_256=192
 gpu_mem_512=192
 gpu_mem_1024=192
+disable_overscan=1
