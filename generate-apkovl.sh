@@ -111,6 +111,16 @@ EOF
 chmod 644 "$TEMPD/etc/apk/world"
 
 #
+# configure chromium policies
+mkdir -p "$TEMPD/etc/chromium/policies/managed"
+cat > "$TEMPD/etc/chromium/policies/managed/curtom_policies.json" << EOF
+{
+  "CommandLineFlagSecurityWarningsEnabled": false
+}
+EOF
+chmod 644 "$TEMPD/etc/chromium/policies/managed/curtom_policies.json"
+
+#
 # inittab to log in root automatically
 mkdir -p "$TEMPD/etc"
 cat > "$TEMPD/etc/inittab" << EOF
@@ -147,7 +157,7 @@ xset s noblank
 width="1920"
 height="1080"
 
-exec chromium-browser $URL --window-size=\$width,\$height --window-position=0,0 --kiosk --no-sandbox --full-screen --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --ignore-gpu-blacklist --disable-quic --enable-fast-unload --enable-tcp-fast-open ---enable-native-gpu-memory-buffers --enable-gpu-rasterization --enable-zero-copy --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/tmp
+exec chromium-browser $URL --window-size=\$width,\$height --window-position=0,0 --kiosk --no-sandbox --full-screen --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --ignore-gpu-blacklist --disable-quic --enable-fast-unload --enable-tcp-fast-open ---enable-native-gpu-memory-buffers --enable-gpu-rasterization --enable-zero-copy --disable-features=TranslateUI --disk-cache-dir=/tmp
 EOF
 chmod 644 "$TEMPD/root/.xinitrc"
 
