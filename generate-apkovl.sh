@@ -1,15 +1,14 @@
 #!/bin/bash
 
-if [ $# -ne 2 ]
+if [ $# -ne 1 ]
 then
-  echo "Usage: $0 <hostname> <url>"
+  echo "Usage: $0 <hostname>"
   exit 1
 fi
 
 #
 # settings
 HOSTNAME="$1"
-URL="$2"
 
 #
 # work directory
@@ -153,11 +152,14 @@ xset -dpms
 xset s off
 xset s noblank
 
+# read url
+url="\$(cat /media/mmcblk0p1/url.txt)"
+
 # screen size
 width="1920"
 height="1080"
 
-exec chromium-browser $URL --window-size=\$width,\$height --window-position=0,0 --kiosk --no-sandbox --full-screen --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --ignore-gpu-blacklist --disable-quic --enable-fast-unload --enable-tcp-fast-open ---enable-native-gpu-memory-buffers --enable-gpu-rasterization --enable-zero-copy --disable-features=TranslateUI --disk-cache-dir=/tmp
+exec chromium-browser \$url --window-size=\$width,\$height --window-position=0,0 --kiosk --no-sandbox --full-screen --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --ignore-gpu-blacklist --disable-quic --enable-fast-unload --enable-tcp-fast-open ---enable-native-gpu-memory-buffers --enable-gpu-rasterization --enable-zero-copy --disable-features=TranslateUI --disk-cache-dir=/tmp
 EOF
 chmod 644 "$TEMPD/root/.xinitrc"
 
