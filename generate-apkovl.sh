@@ -16,7 +16,7 @@ SSHPUBLICKEYFILE="$5"
 WWWSITES="$6"
 
 # choose letsencrypt CA api url
-CAURL="https://acme-staging.api.letsencrypt.org/directory"
+CAURL="https://acme-staging-v02.api.letsencrypt.org/directory"
 if [[ "$7" = "production" ]]
 then
   CAURL="https://acme-v02.api.letsencrypt.org/directory"
