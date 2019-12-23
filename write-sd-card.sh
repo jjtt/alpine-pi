@@ -8,7 +8,7 @@ fi
 
 SDCARD="$1"
 APKOVL="$2"
-ALPINE=http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/armhf/alpine-rpi-3.8.0-armhf.tar.gz
+ALPINE=http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/armhf/alpine-rpi-3.8.4-armhf.tar.gz
 
 # download if alpine not downloaded already
 if [ ! -f ${ALPINE##*/} ]
