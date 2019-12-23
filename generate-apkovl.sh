@@ -181,10 +181,12 @@ cp -r "$WWWSITES/"* "$TEMPD/var/www"
 
 #
 # create apkovl for configured hostname
-cp initial.apkovl.tar "$HOSTNAME.apkovl.tar"
+tar -cf "$HOSTNAME.apkovl.tar" -C "initial-shadow" --owner=root:0 --group=shadow:42 etc
+tar -rf "$HOSTNAME.apkovl.tar" -C "initial" --owner=root:0 --group=root:0 etc root usr var
 tar -rf "$HOSTNAME.apkovl.tar" -C "$TEMPD" --owner=root:0 --group=root:0 etc root var
 gzip "$HOSTNAME.apkovl.tar"
 
 #
 # cleanup
-rm -Rf "$TEMPD"
+#rm -Rf "$TEMPD"
+echo $TEMPD

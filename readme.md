@@ -47,3 +47,8 @@ Lots.
 * actual content for the website
 * static ip support
 * dynamic dns support
+
+## TODO
+
+* initial/etc/resolv.conf
+* initial/etc/network/interfaces

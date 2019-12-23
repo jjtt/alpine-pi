@@ -1,0 +1,28 @@
+#!/bin/sh
+
+hook="$1"
+domain="$2"
+privkey="$3"
+cert="$4"
+fullchain="$5"
+chain="$6"
+timestamp="$7"
+
+if [[ "${hook}" = "exit_hook" ]]
+then
+  echo "$0 $*"
+  exit 0
+fi
+
+if [[ ! "${hook}" = "deploy_cert" ]]
+then
+  exit 0
+fi
+
+combined="$(dirname ${privkey})/combined.pem"
+echo "Creating file ${combined}"
+cat ${privkey} ${cert} > ${combined}
+/etc/init.d/lighttpd restart
+
+# commit renewed certificates to local backup in case of a reboot
+/sbin/lbu commit

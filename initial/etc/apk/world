@@ -1,0 +1,9 @@
+alpine-base
+bash
+bind-tools
+chrony
+curl
+lighttpd
+openssh
+openssl
+ssmtp

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -z "$(ls /etc/dehydrated/accounts)" ]; then
+  echo "Registering letsencrypt account"
+  /usr/local/bin/dehydrated --register --accept-terms
+  /sbin/lbu commit
+fi
+
+echo "Requesting certificates"
+/usr/local/bin/dehydrated -c

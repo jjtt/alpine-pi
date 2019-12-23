@@ -1,0 +1,5 @@
++var/www/
++root/.ssh/authorized_keys
++usr/local/bin/dehydrated
++usr/local/bin/deploy_cert_hook
+-etc/dehydrated/lock
