@@ -54,6 +54,12 @@ mkdir -p "$TEMPD/etc/runlevels/default"
 ln -s /etc/init.d/local "$TEMPD/etc/runlevels/default/local"
 
 #
+# periodic stuff using cron
+mkdir -p "$TEMPD/etc"
+cp -rv periodic "$TEMPD/etc/"
+chmod -Rv 755 "$TEMPD/etc/periodic"
+
+#
 # custom apk repository keys
 mkdir -p "$TEMPD/etc/apk/keys"
 cp keys/* "$TEMPD/etc/apk/keys/"
@@ -113,6 +119,7 @@ kbd
 xrandr
 xset
 chromium
+libcec
 EOF
 chmod 644 "$TEMPD/etc/apk/world"
 
