@@ -54,9 +54,16 @@ mkdir -p "$TEMPD/etc/runlevels/default"
 ln -s /etc/init.d/local "$TEMPD/etc/runlevels/default/local"
 
 #
+# custom apk repository keys
+mkdir -p "$TEMPD/etc/apk/keys"
+cp keys/* "$TEMPD/etc/apk/keys/"
+chmod 644 "$TEMPD/etc/apk/keys/"*
+
+#
 # enable community repository
 mkdir -p "$TEMPD/etc/apk"
 cat > "$TEMPD/etc/apk/repositories" << EOF
+https://torma.fi/packages
 http://alpine.mirror.far.fi/v3.10/main
 http://alpine.mirror.far.fi/v3.10/community
 EOF
