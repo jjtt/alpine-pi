@@ -1,5 +1,4 @@
 #!/bin/bash
-
 if [ $# -ne 1 ]
 then
   echo "Usage: $0 <hostname>"
@@ -17,13 +16,13 @@ TEMPD="$(mktemp -d)"
 #
 # apk arch
 mkdir -p "$TEMPD/etc/apk"
-echo "armv7" > "$TEMPD/etc/apk/arch"
+echo "armhf" > "$TEMPD/etc/apk/arch"
 chmod 644 "$TEMPD/etc/apk/arch"
 
 #
 # hosts
 mkdir -p "$TEMPD/etc"
-echo "127.0.0.1       $HOSTNAMEAINNAME $HOSTNAME localhost.localdomain localhost" > "$TEMPD/etc/hosts"
+echo "127.0.0.1       $HOSTNAME localhost.localdomain localhost" > "$TEMPD/etc/hosts"
 chmod 644 "$TEMPD/etc/hosts"
 
 #
@@ -54,24 +53,11 @@ mkdir -p "$TEMPD/etc/runlevels/default"
 ln -s /etc/init.d/local "$TEMPD/etc/runlevels/default/local"
 
 #
-# periodic stuff using cron
-mkdir -p "$TEMPD/etc"
-cp -rv periodic "$TEMPD/etc/"
-chmod -Rv 755 "$TEMPD/etc/periodic"
-
-#
-# custom apk repository keys
-mkdir -p "$TEMPD/etc/apk/keys"
-cp keys/* "$TEMPD/etc/apk/keys/"
-chmod 644 "$TEMPD/etc/apk/keys/"*
-
-#
 # enable community repository
 mkdir -p "$TEMPD/etc/apk"
 cat > "$TEMPD/etc/apk/repositories" << EOF
-https://torma.fi/packages
-http://alpine.mirror.far.fi/v3.10/main
-http://alpine.mirror.far.fi/v3.10/community
+http://alpine.mirror.far.fi/v3.12/main
+http://alpine.mirror.far.fi/v3.12/community
 EOF
 chmod 644 "$TEMPD/etc/apk/repositories"
 
@@ -98,89 +84,19 @@ EOF
 chmod 755 "$TEMPD/etc/local.d/00apk-update-upgrade.start"
 
 #
-# add xorg and chromium to world
+# add packages to to world
 mkdir -p "$TEMPD/etc/apk"
 cat > "$TEMPD/etc/apk/world" << EOF
 alpine-base
-chrony
-openssl
-xorg-server
-xf86-video-vesa
-xf86-input-evdev
-xf86-input-mouse
-xf86-input-keyboard
-udev
-mesa-dri-vc4
-mesa-egl
-xf86-video-fbdev
-dbus
-setxkbmap
-kbd
-xrandr
-xset
-chromium
-libcec
+python3
+py3-pip
 EOF
 chmod 644 "$TEMPD/etc/apk/world"
 
 #
-# configure chromium policies
-mkdir -p "$TEMPD/etc/chromium/policies/managed"
-cat > "$TEMPD/etc/chromium/policies/managed/curtom_policies.json" << EOF
-{
-  "CommandLineFlagSecurityWarningsEnabled": false
-}
-EOF
-chmod 644 "$TEMPD/etc/chromium/policies/managed/curtom_policies.json"
-
-#
-# inittab to log in root automatically
-mkdir -p "$TEMPD/etc"
-cat > "$TEMPD/etc/inittab" << EOF
-::sysinit:/sbin/openrc sysinit
-::sysinit:/sbin/openrc boot
-::wait:/sbin/openrc default
-tty1::respawn:/bin/login -f root
-::ctrlaltdel:/sbin/reboot
-::shutdown:/sbin/openrc shutdown
-EOF
-chmod 644 "$TEMPD/etc/inittab"
-
-#
-# startx
-mkdir -p "$TEMPD/root"
-cat > "$TEMPD/root/.profile" << EOF
-#!/bin/sh
-exec startx -- -nocursor
-EOF
-chmod 644 "$TEMPD/root/.profile"
-
-#
-# xinitrc
-mkdir -p "$TEMPD/root"
-cat > "$TEMPD/root/.xinitrc" << EOF
-#!/bin/sh
-
-# turn off screensaver
-xset -dpms
-xset s off
-xset s noblank
-
-# read url
-url="\$(cat /media/mmcblk0p1/url.txt)"
-
-# screen size
-width="1920"
-height="1080"
-
-exec chromium-browser \$url --window-size=\$width,\$height --window-position=0,0 --kiosk --no-sandbox --full-screen --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --ignore-gpu-blacklist --disable-quic --enable-fast-unload --enable-tcp-fast-open ---enable-native-gpu-memory-buffers --enable-gpu-rasterization --enable-zero-copy --disable-features=TranslateUI --disk-cache-dir=/tmp --check-for-update-interval=604800
-EOF
-chmod 644 "$TEMPD/root/.xinitrc"
-
-#
 # create apkovl for configured hostname
 cp initial.apkovl.tar "$HOSTNAME.apkovl.tar"
-tar -rf "$HOSTNAME.apkovl.tar" -C "$TEMPD" --owner=root:0 --group=root:0 etc root
+tar -rf "$HOSTNAME.apkovl.tar" -C "$TEMPD" --owner=root:0 --group=root:0 etc
 gzip "$HOSTNAME.apkovl.tar"
 
 #

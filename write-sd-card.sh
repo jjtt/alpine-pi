@@ -1,15 +1,14 @@
 #!/bin/bash
 
-if [ $# -ne 3 ]
+if [ $# -ne 2 ]
 then
-  echo "Usage: $0 <path_to_mounted_sd_card_with_fat32> <apkovl_file> <url>"
+  echo "Usage: $0 <path_to_mounted_sd_card_with_fat32> <apkovl_file>"
   exit 1
 fi
 
 SDCARD="$1"
 APKOVL="$2"
-URL="$3"
-ALPINE=http://dl-cdn.alpinelinux.org/alpine/v3.10/releases/armv7/alpine-rpi-3.10.3-armv7.tar.gz
+ALPINE=http://dl-cdn.alpinelinux.org/alpine/v3.12/releases/armhf/alpine-rpi-3.12.1-armhf.tar.gz
 
 # download if alpine not downloaded already
 if [ ! -f ${ALPINE##*/} ]
@@ -24,5 +23,3 @@ cp -v usercfg.txt "$SDCARD"
 cp -v "$APKOVL" "$SDCARD"
 
 mkdir -v "$SDCARD/cache"
-
-echo -n "$URL" > "$SDCARD/url.txt"

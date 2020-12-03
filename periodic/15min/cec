@@ -1,4 +1,0 @@
-#!/bin/sh
-export LD_LIBRARY_PATH=/opt/vc/lib
-/bin/echo "on 0" | /usr/bin/cec-client -s
-/bin/echo "as" | /usr/bin/cec-client -s
